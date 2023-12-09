@@ -13,4 +13,9 @@ class Location extends Model
         'region',
         'city',
     ];
+
+    public function players(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'user_id','id');
+    }
 }

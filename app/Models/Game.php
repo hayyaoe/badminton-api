@@ -15,4 +15,19 @@ class Game extends Model
         'information',
         'gamecode'
     ];
+
+    public function sets(): HasMany
+    {
+        return $this->hasMany(Set::class, 'game_id', 'id');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'game_id','id');
+    }
+
+    public function userGames(): HasMany
+    {
+        return $this->hasMany(UserGame::class,'game_id','id');
+    }
 }

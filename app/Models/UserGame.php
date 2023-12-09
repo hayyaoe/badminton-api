@@ -13,4 +13,12 @@ class UserGame extends Model
         'user_id',
         'game_id'
     ];
+
+    public function user(): BelongsTo{
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function game(): BelongsTo{
+        return $this->belongsTo(Game::class,'game_id','id');
+    }
 }

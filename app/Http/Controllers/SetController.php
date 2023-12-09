@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Set;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSetRequest;
 use App\Http\Requests\UpdateSetRequest;
-use App\Models\Set;
 
 class SetController extends Controller
 {
@@ -18,7 +21,7 @@ class SetController extends Controller
         $set->save();
 
         return[
-            'status'=>HTTP_OK,
+            'status'=> Response::HTTP_OK,
             'message'=>"set created",
             'data'=> $set
         ];
@@ -33,14 +36,14 @@ class SetController extends Controller
             $set->save();
 
             return[
-                'status'=> HTTP_OK,
+                'status'=> Response::HTTP_OK,
                 'message'=> "Set Updated",
                 'data'=>$set
             ];
         }
 
         return[
-            'status'=> HTTP_NOT_FOUND,
+            'status'=> Response::HTTP_NOT_FOUND,
             'message'=> "Set Not Found",
             'data'=>[]
         ];
@@ -51,14 +54,14 @@ class SetController extends Controller
 
         if(!empty($sets)){
             return[
-                'status'=> HTTP_OK,
+                'status'=> Response::HTTP_OK,
                 'message'=> "Sets Get",
                 'data'=>$sets
             ];
         }
 
         return[
-            'status'=> HTTP_NOT_FOUND,
+            'status'=> Response::HTTP_NOT_FOUND,
             'message'=> "Sets Not Found",
             'data'=>[]
         ];

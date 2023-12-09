@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Spartner;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSpartnerRequest;
 use App\Http\Requests\UpdateSpartnerRequest;
-use App\Models\Spartner;
 
 class SpartnerController extends Controller
 {
@@ -18,15 +21,15 @@ class SpartnerController extends Controller
         $spartner->save();
 
         return [
-            'status'=> HTTP_OK,
+            'status'=> Response::HTTP_OK,
             'message'=> "Spartner Created",
             'data'=> $spartner
         ];
     }
 
-    public function updateSpartner(Requset $request){
+    public function updateSpartner(Request $request){
 
-        $spartner = Spartner::where('id', $request->id);
+        $spartner = Spartner::where('id', $request->id)->first();
 
         if(!empty($spartner)){
             $spartner->user2status = '1';
@@ -34,16 +37,34 @@ class SpartnerController extends Controller
             $spartner->save();
 
             return[
-                'status'=> HTTP_OK,
+                'status'=> Response::HTTP_OK,
                 'message'=> "Spartner Added",
                 'data'=>$spartner
             ];
         }
 
         return[
-            'status'=> HTTP_NOT_FOUND,
+            'status'=> Response::HTTP_NOT_FOUND,
             'message'=> "Spartner Not Found",
             'data'=>[]
         ];
+    }
+
+    public function getSpartner(Request $request){
+        $spartner = Spartner::where('id', $request->id)->first();
+
+        if(!empty($spartner)){
+            return[
+                'status'=> Response::HTTP_OK,
+                'message'=> "Spartner Added",
+                'data'=>$spartner
+            ];
+        }
+        return[
+            'status'=> Response::HTTP_NOT_FOUND,
+            'message'=> "Spartner Not Found",
+            'data'=>[]
+        ];
+
     }
 }

@@ -14,4 +14,9 @@ class Set extends Model
         'player2_score',
         'game_id'
     ];
+
+    public function game(): BelongsTo
+    {
+        return $this->belongsTo(Game::class, 'game_id','id');
+    }
 }

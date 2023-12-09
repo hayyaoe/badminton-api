@@ -21,6 +21,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'contacts',
+        'phone_number',
         'image_path',
         'location_id',
         'rank'
@@ -45,4 +47,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function userGames(): HasMany
+    {
+        return $this->HasMany(UserGame::class,'user_id','id');
+    }
+
+    public function reviews(): HasMany{
+        return $this->hasMany(Review::class,'review_id','id');
+    }
 }

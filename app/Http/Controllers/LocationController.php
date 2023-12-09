@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\LocationResource;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
@@ -20,14 +23,14 @@ class LocationController extends Controller
 
         if(!empty($location)){
             return[
-                'status'=> HTTP_OK,
+                'status'=> Response::HTTP_OK,
                 'message'=> "Location Found",
                 "data"=> $location
             ];
         }
 
         return[
-            'status'=> HTTP_NOT_FOUND,
+            'status'=> Response::HTTP_NOT_FOUND,
                 'message'=> "Location Not Found",
                 "data"=> []
         ];

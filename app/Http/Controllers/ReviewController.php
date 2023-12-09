@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
-use App\Models\Review;
 
 class ReviewController extends Controller
 {
@@ -19,7 +22,7 @@ class ReviewController extends Controller
         $review->save();
 
         return[
-            'status'=> HTTP_OK,
+            'status'=>Response::HTTP_OK,
             'message'=> "Review Created",
             'data'=> $review
         ];
@@ -30,14 +33,14 @@ class ReviewController extends Controller
 
         if(!empty($review)){
             return[
-                'status'=> HTTP_OK,
+                'status'=> Response::HTTP_OK,
                 'message'=> "Review Created",
                 'data'=> $review
             ];
         }
 
         return[
-            'status'=> HTTP_NOT_FOUND,
+            'status'=> Response::HTTP_NOT_FOUND,
             'message'=> "Review Not Found",
             'data'=> []
         ];
