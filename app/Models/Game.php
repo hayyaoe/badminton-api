@@ -13,7 +13,8 @@ class Game extends Model
         'score_1',
         'score_2',
         'information',
-        'gamecode'
+        'gamecode',
+        'gamestatus'
     ];
 
     public function sets(): HasMany

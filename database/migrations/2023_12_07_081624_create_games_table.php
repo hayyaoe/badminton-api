@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('score_2');
             $table->text('information')->nullable();
             $table->string('gamecode')->unique;
+            $table->enum('gamestatus', ['0','1'])->default('0');
         });
     }
 

@@ -6,6 +6,7 @@ use App\Models\UserGame;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserGameResource;
 use App\Http\Requests\StoreUserGameRequest;
 use App\Http\Requests\UpdateUserGameRequest;
 
@@ -41,5 +42,10 @@ class UserGameController extends Controller
             'data'=> []
         ];
 
+    }
+
+    public function getUserInAGame(Request $request){
+        $userGames = UserGame::where('game_id', $request->game_id)->get();
+        return UserGameResource::collection($userGames);
     }
 }

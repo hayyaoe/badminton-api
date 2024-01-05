@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Resources\SetResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSetRequest;
 use App\Http\Requests\UpdateSetRequest;
@@ -53,17 +54,10 @@ class SetController extends Controller
         $sets = Set::where('game_id', $request->game_id)->get();
 
         if(!empty($sets)){
-            return[
-                'status'=> Response::HTTP_OK,
-                'message'=> "Sets Get",
-                'data'=>$sets
-            ];
+            return SetResource::collection($sets);
         }
 
         return[
-            'status'=> Response::HTTP_NOT_FOUND,
-            'message'=> "Sets Not Found",
-            'data'=>[]
         ];
 
     }

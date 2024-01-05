@@ -23,11 +23,14 @@ class AuthController extends Controller
                 return [
                     "status" => Response::HTTP_OK,
                     "message" => "Token Created",
-                    "data" => $user->createToken('login')->plainTextToken
+                    "data" => [
+                        $user->createToken('login')->plainTextToken,
+                        $user->email
+                        ]
                 ];
             }else{
                 return[
-                    "status"=> RESPONSE::HTTP_FORBIDDEN,
+                    "status"=> Response::HTTP_FORBIDDEN,
                     "message"=>"Incorrect Password",
                     "data"=>[]
                 ];

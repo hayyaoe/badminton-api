@@ -22,6 +22,7 @@ use App\Http\Controllers\UserGameController;
 |
 */
 Route::get('all_location', [LocationController::class,'getAllLocation']);
+Route::post('email_check',[UserController::class,'emailCheck']);
 Route::post('login', [AuthController::class, 'login']);
 
 
@@ -36,8 +37,13 @@ Route::middleware('auth:sanctum')->group(
         Route::delete('logout',[AuthController::class,'logout']);
 
         // User
-        Route::patch('update_user', [UserController::class, 'updateUser']);
+        Route::patch('update_user', [UserController::class, "updateUser"]);
+        Route::put('update_rank', [UserController::class, "updateRank"]);
         Route::delete('delete_user',[UserController::class,"deleteUser"]);
+        Route::post('get_user',[UserController::class,"getUser"]);
+        Route::post('get_users',[UserController::class,"getUsers"]);
+        Route::post('upload_picture', [UserController::class, "uploadPicture"]);
+        Route::post('update_profile_picture',[UserController::class, "updateProfilePict"]);
 
         // Location
         Route::get('get_location',[LocationController::class, "getLocation"]);
@@ -46,14 +52,14 @@ Route::middleware('auth:sanctum')->group(
         Route::post('create_game',[GameController::class,'createGame']);
         Route::patch('update_game', [GameController::class, 'updateGame']);
         Route::post('join_game',[GameController::class,'joinGame']);
-
+        Route::post('get_game',[GameController::class, 'getGame']);
         // Reviews
         Route::get('get_reviews',[ReviewController::class,'getReviews']);
         Route::post('create_review',[ReviewController::class,'createReview']);
 
         // Set
         Route::post('create_set',[SetController::class,'createSet']);
-        Route::get('get_set',[SetController::class,'getSet']);
+        Route::post('get_sets',[SetController::class,'getSets']);
         Route::patch('update_set',[SetController::class,'updateSet']);
 
         // Spartner
@@ -64,5 +70,6 @@ Route::middleware('auth:sanctum')->group(
         // UserGame
         Route::post('create_user_game',[UserGameController::class,'createUserGame']);
         Route::get('get_user_games',[UserGameController::class,'getUserGames']);
+        Route::post('get_user_in_a_game',[UserGameController::class,'getUserInAGame']);
     }
 );

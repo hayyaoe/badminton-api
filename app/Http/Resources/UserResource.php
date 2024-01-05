@@ -18,12 +18,11 @@ class UserResource extends JsonResource
         return[
             "id"=> $this->id,
             "username"=> $this->username,
-            "password"=> $this->password,
             "profile_path"=> $this->profile_path,
             "contacts"=> $this->contacts,
             "phone_number"=> $this->phone_number,
             "rank"=> $this->rank,
-            "location_id"=> $this->location_id
+            "location_id"=> $this->location_id,
         ];
     }
 }

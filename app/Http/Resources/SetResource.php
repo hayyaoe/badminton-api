@@ -18,6 +18,8 @@ class SetResource extends JsonResource
             "id"=> $this->id,
             "player1_score" => $this->player1_score,
             "player2_score" => $this->player2_score,
+            "created_at"=> $this->created_at,
+            "updated_at"=>$this->updated_at,
             "game_id"=> $this->game_id
         ];
     }

@@ -11,7 +11,6 @@ class Location extends Model
 
     protected $fillable = [
         'region',
-        'city',
     ];
 
     public function players(): BelongsToMany
