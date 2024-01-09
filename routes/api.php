@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(
         Route::patch('update_game', [GameController::class, 'updateGame']);
         Route::post('join_game',[GameController::class,'joinGame']);
         Route::post('get_game',[GameController::class, 'getGame']);
+        Route::post('get_game_datas',[GameController::class,'getGameDatas']);
         // Reviews
         Route::get('get_reviews',[ReviewController::class,'getReviews']);
         Route::post('create_review',[ReviewController::class,'createReview']);
@@ -69,7 +70,7 @@ Route::middleware('auth:sanctum')->group(
 
         // UserGame
         Route::post('create_user_game',[UserGameController::class,'createUserGame']);
-        Route::get('get_user_games',[UserGameController::class,'getUserGames']);
+        Route::post('get_user_games',[UserGameController::class,'getUserGames']);
         Route::post('get_user_in_a_game',[UserGameController::class,'getUserInAGame']);
     }
 );

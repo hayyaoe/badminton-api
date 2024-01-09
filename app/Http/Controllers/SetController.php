@@ -21,11 +21,7 @@ class SetController extends Controller
         $set->game_id = $request->game_id;
         $set->save();
 
-        return[
-            'status'=> Response::HTTP_OK,
-            'message'=>"set created",
-            'data'=> $set
-        ];
+        return $set;
     }
 
     public function updateSet(Request $request){
@@ -36,18 +32,10 @@ class SetController extends Controller
             $set->player2_score = $request->player2_score;
             $set->save();
 
-            return[
-                'status'=> Response::HTTP_OK,
-                'message'=> "Set Updated",
-                'data'=>$set
-            ];
+            return $set;
         }
 
-        return[
-            'status'=> Response::HTTP_NOT_FOUND,
-            'message'=> "Set Not Found",
-            'data'=>[]
-        ];
+        return[];
     }
 
     public function getSets(Request $request){

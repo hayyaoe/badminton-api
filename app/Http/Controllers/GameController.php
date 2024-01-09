@@ -48,29 +48,34 @@ class GameController extends Controller
         $set1->game_id = $game->id;
         $set1->save();
 
-        $set2 = new Set();
+        $userGames = $game->userGames;
+        $users = [];
+        foreach($userGames as $us){
 
-        $set2->player1_score = 0;
-        $set2->player2_score = 0;
-        $set2->game_id = $game->id;
-        $set2->save();
+            $data =$us->user;
+            $users[] = [
+                "user_id" => $data->id,
+                "photo" => $data->image_path,
+                "username" => $data->username
+            ];
+        }
 
         return [
             "game_id"=> $game->id,
-            "set1_id"=> $set1->id,
-            "set2_id"=> $set2->id,
             "information"=> $game->information,
+            "created_at"=> $game->created_at,
+            "updated_at" => $game->updated_at,
             "score_1"=> $game->score_1,
             "score_2"=> $game->score_2,
             "gamecode"=> $game->gamecode,
+            "gamestatus"=> $game->gamestatus,
+            "players"=> $users,
         ];
     }
 
     public function updateGame(Request $request){
         if(!empty($request->gamecode)){
             $game = Game::where('gamecode',$request->gamecode )->first();
-        }else{
-            $game = Game::where('id',$request->id )->first();
         }
 
         if(!empty($game)){
@@ -81,17 +86,34 @@ class GameController extends Controller
                 $game->gamestatus = $request->gamestatus;
                 $game->save();
 
-                return[
-                    "satus"=> Response::HTTP_OK,
-                    "message"=> "Game Updated",
-                    "data"=> $game
+                $userGames = $game->userGames;
+                $users = [];
+                foreach($userGames as $us){
+
+                    $data =$us->user;
+                    $users[] = [
+                        "user_id" => $data->id,
+                        "photo" => $data->image_path,
+                        "username" => $data->username
+                    ];
+                }
+                $information = "";
+                if (!empty($game->information)) {
+                   $information = $game->information;
+                }
+
+                return [
+                    "game_id"=> $game->id,
+                    "information"=> $information,
+                    "created_at"=> $game->created_at,
+                    "updated_at" => $game->updated_at,
+                    "score_1"=> $game->score_1,
+                    "score_2"=> $game->score_2,
+                    "gamecode"=> $game->gamecode,
+                    "players"=> $users,
                 ];
             }catch(Exception $e){
-                return[
-                    "satus"=> Response::HTTP_INTERNAL_SERVER_ERROR,
-                    "message"=> $e->getMessage(),
-                    "data"=> []
-                ];
+                return[];
             }
         }
 
@@ -105,24 +127,84 @@ class GameController extends Controller
 
     public function joinGame(Request $request){
         $game = Game::where('gamecode', $request->gamecode)->first();
+        $user = User::where('email', $request->email)->first();
 
         if(!empty($game)){
             $userGame = new UserGame();
-            $userGame->user_id = $request->user_id;
+            $userGame->user_id = $user->id;
             $userGame->game_id = $game->id;
             $userGame->save();
-            return[
-                "satus"=> Response::HTTP_OK,
-                "message"=> "Game Joined",
-                "data"=> $game
-            ];
+
+            $userGames = $game->userGames;
+                $users = [];
+                foreach($userGames as $us){
+
+                    $data =$us->user;
+                    $users[] = [
+                        "user_id" => $data->id,
+                        "photo" => $data->image_path,
+                        "username" => $data->username
+                    ];
+                }
+                $information = "";
+                if (!empty($game->information)) {
+                   $information = $game->information;
+                }
+
+                return [
+                    "game_id"=> $game->id,
+                    "information"=> $information,
+                    "created_at"=> $game->created_at,
+                    "updated_at" => $game->updated_at,
+                    "score_1"=> $game->score_1,
+                    "score_2"=> $game->score_2,
+                    "gamecode"=> $game->gamecode,
+                    "players"=> $users,
+                ];
         }
 
         return [
-            'status'=> Response::HTTP_NOT_FOUND,
-            'message'=> 'Game Not Found',
-            'data'=> []
-        ];
+            "game_id"=> 0,
+        "information"=> "",
+        "created_at"=> "",
+        "updated_at" => "",
+        "score_1"=> 0,
+        "score_2"=> 0,
+        "gamecode"=> "",
+        "players"=> [],];
+    }
+
+    public function getGameDatas(Request $request){
+        $game = Game::where('gamecode', $request->gamecode)->first();
+        $user = User::where('email', $request->email)->first();
+
+        $userGames = $game->userGames;
+                $users = [];
+                foreach($userGames as $us){
+
+                    $data =$us->user;
+                    $users[] = [
+                        "user_id" => $data->id,
+                        "photo" => $data->image_path,
+                        "username" => $data->username
+                    ];
+                }
+                $information = "";
+                if (!empty($game->information)) {
+                   $information = $game->information;
+                }
+
+                return [
+                    "game_id"=> $game->id,
+                    "information"=> $information,
+                    "created_at"=> $game->created_at,
+                    "updated_at" => $game->updated_at,
+                    "score_1"=> $game->score_1,
+                    "score_2"=> $game->score_2,
+                    "gamecode"=> $game->gamecode,
+                    "players"=> $users,
+                    "sets"=> $game->sets
+                ];
     }
 
     public function getGame(Request $request){
