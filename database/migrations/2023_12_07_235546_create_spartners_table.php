@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('user1');
             $table->unsignedBigInteger('user2');
-            $table->enum('user1status', ['0','1'])->default('1');
-            $table->enum('user2status', ['0','1'])->default('0');
+            $table->integer('user1status')->default('1');
+            $table->integer('user2status')->default('0');
             $table->foreign('user1')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('user2')->references('id')->on('users')->onDelete('cascade');
         });

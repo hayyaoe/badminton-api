@@ -67,6 +67,8 @@ Route::middleware('auth:sanctum')->group(
         Route::get('get_spartner',[SpartnerController::class,'getSpartner']);
         Route::patch('update_spartner',[SpartnerController::class,'updateSpartner']);
         Route::post('create_spartner',[SpartnerController::class,'createSpartner']);
+        Route::post('get_spartner_requests',[SpartnerController::class,'getSpartnerRequest']);
+        Route::post('get_spartners',[SpartnerController::class,'getSpartners']);
 
         // UserGame
         Route::post('create_user_game',[UserGameController::class,'createUserGame']);

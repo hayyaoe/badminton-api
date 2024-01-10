@@ -41,13 +41,6 @@ class GameController extends Controller
         $userGame->game_id = $game->id;
         $userGame->save();
 
-        $set1 = new Set();
-
-        $set1->player1_score = 0;
-        $set1->player2_score = 0;
-        $set1->game_id = $game->id;
-        $set1->save();
-
         $userGames = $game->userGames;
         $users = [];
         foreach($userGames as $us){
@@ -110,6 +103,7 @@ class GameController extends Controller
                     "score_1"=> $game->score_1,
                     "score_2"=> $game->score_2,
                     "gamecode"=> $game->gamecode,
+                    "gamestatus"=>$game->gamestatus,
                     "players"=> $users,
                 ];
             }catch(Exception $e){
@@ -202,6 +196,7 @@ class GameController extends Controller
                     "score_1"=> $game->score_1,
                     "score_2"=> $game->score_2,
                     "gamecode"=> $game->gamecode,
+                    "gamestatus"=>$game->gamestatus,
                     "players"=> $users,
                     "sets"=> $game->sets
                 ];

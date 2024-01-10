@@ -17,13 +17,13 @@ class Spartner extends Model
         'user2status'
     ];
 
-    public function user1(): BelongsToMany
+    public function user1data(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'spartners', 'user1', 'user2')
             ->withPivot('user1status', 'user2status');
     }
 
-    public function user2(): BelongsToMany
+    public function user2data(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'spartners', 'user2', 'user1')
             ->withPivot('user1status', 'user2status');
